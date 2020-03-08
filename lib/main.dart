@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/modules/LightController.dart';
 import 'package:flutterapp/components/IPInputForm.dart';
+import 'components/LightToggleInput.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,15 +30,27 @@ class HomePage extends StatelessWidget {
           title: Text('Light controller'),
           backgroundColor: Colors.red[600],
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: ListView(
+          //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
               child: IPInputForm(),
             ),
             Container(
-              child: null,
-            )
+              child: LightToggleInput("All", "On", "on", "Off", "off", true, false),
+            ),
+            Container(
+              child: LightToggleInput("Blue", "On", "blue_on", "Off", "blue_off", true, false),
+            ),
+            Container(
+              child: LightToggleInput("Red", "On", "red_on", "Off", "red_off", true, false),
+            ),
+            Container(
+              child: LightToggleInput("Green", "On", "green_on", "Off", "green_off", true, false),
+            ),
+            Container(
+              child: LightToggleInput("Yellow", "On", "yellow_on", "Off", "yellow_off", true, false),
+            ),
           ],
         ),
 

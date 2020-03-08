@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/main.dart';
+import 'package:flutterapp/styling/styling.dart';
 
 class IPInputForm extends StatefulWidget {
   @override
@@ -19,11 +20,14 @@ class IPInputFormState extends State<IPInputForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column (
+    return Container(
+      decoration: mainBoxDecoration(),
+      margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: Column (
         children: <Widget>[
           Container(
-              padding: EdgeInsets.all(10.0),
-              margin: EdgeInsets.all(10.0),
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: TextFormField(
                 controller: myController,
                 decoration: InputDecoration(
@@ -63,6 +67,7 @@ class IPInputFormState extends State<IPInputForm> {
             ],
           )
         ]
+      )
     );
   }
 }
