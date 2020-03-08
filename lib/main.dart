@@ -1,42 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'dart:async';
-import 'dart:convert';
+import 'package:flutterapp/modules/LightController.dart';
+import 'package:flutterapp/components/IPInputForm.dart';
 
 void main() => runApp(MyApp());
-
-class Lights {
-  Socket socket;
-
-  // This NEEDS to have been called before using the class, net to learn how to do this correctly
-  connect() async {
-    socket = await Socket.connect('192.168.1.24', 4000);
-    print('Connected');
-  }
-
-  // This NEEDS to be called when exiting, close the socket connection
-  close() {
-    socket.close();
-  }
-
-  // Turn light on
-  sendOn() async {
-    // send hello
-    socket.add(utf8.encode('on'));
-
-    // wait 5 seconds
-    await Future.delayed(Duration(seconds: 5));
-  }
-
-  // Turn lights off
-  sendOff() async {
-    // send hello
-    socket.add(utf8.encode('off'));
-
-    // wait 5 seconds
-    await Future.delayed(Duration(seconds: 5));
-  }
-}
 
 class MyApp extends StatelessWidget {
   @override
@@ -48,37 +14,75 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class HomePage extends StatelessWidget {
-  Lights lights = new Lights();
+  static LightController lights;
 
   HomePage() {
-    lights.connect();
+    lights = LightController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('App'),
-          centerTitle: true,
+          title: Text('Light controller'),
           backgroundColor: Colors.red[600],
         ),
-        body: Center(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              child: IPInputForm(),
+            ),
+            Container(
+              child: null,
+            )
+          ],
+        ),
+
+        /*Center(
           child: new ButtonBar(
             children: <Widget>[
-              FlatButton(
-                onPressed: () {lights.sendOn();},
+              RaisedButton(
+                onPressed: () {lights.sendCommand("on");},
                 child: Text("On"),
+                color: Colors.blue,
+              ),
+              RaisedButton(
+                onPressed: () {lights.sendCommand("off");},
+                child: Text("Off"),
+                color: Colors.blue,
+              ),
+              RaisedButton(
+                onPressed: () {lights.sendCommand("blue_on");},
+                child: Text("Blue on"),
+                color: Colors.blue,
+              ),
+              RaisedButton(
+                onPressed: () {lights.sendCommand("blue_off");},
+                child: Text("Blue off"),
+                color: Colors.blue,
+              ),
+              RaisedButton.icon(
+                onPressed: () {lights.connect();},
+                icon: Icon(
+                  Icons.bluetooth_connected
+                ),
+                label: Text("Connect"),
                 color: Colors.green,
               ),
-              FlatButton(
-                onPressed: () {lights.sendOff();},
-                child: Text("Off"),
+              RaisedButton.icon(
+                onPressed: () {lights.disconnect();},
+                icon: Icon(
+                  Icons.bluetooth_disabled
+                ),
+                label: Text("Disconnect"),
                 color: Colors.red,
               ),
             ],
           )
-        )
+        )*/
     );
   }
 }
